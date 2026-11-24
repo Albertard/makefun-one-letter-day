@@ -16,13 +16,13 @@ const TEXT = "Z";
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 const outPath = join(outDir, "entry.txt");
 
-// The gate takes 1-1 Unicode code points, and not only white space.
-// Check the text before writing it: a file outside the gate never
+// The gate takes exactly one Unicode code point, and not only white
+// space. Check the text before writing it: a file outside the gate never
 // reaches the judge, so fail loudly here instead.
 function checkFitsGate(candidate: string): void {
   const size = Array.from(candidate).length;
-  if (size < 1 || size > 1) {
-    throw new Error(`entry is ${size} characters, outside the 1-1 gate`);
+  if (size !== 1) {
+    throw new Error(`entry is ${size} characters, outside the exactly-1 gate`);
   }
   if (candidate.trim() === "") {
     throw new Error("entry holds only white space");
